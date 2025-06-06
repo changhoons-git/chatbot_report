@@ -1,4 +1,6 @@
 import pandas as pd
+import os
+
 
 # 레벤슈타인 거리 계산 함수 정의
 def calc_distance(a, b):
@@ -60,8 +62,11 @@ class LevenshteinChatBot:
         # 해당 인덱스의 답변 반환
         return self.answers[best_match_index]
 
-# CSV 파일 경로 (사용자 지정 경로 사용)
-filepath = r'C:\Users\user\Desktop\고려사이버대학교\AI 개발 실무\chatbot_report\ChatbotData.csv'
+# 현재 파이썬 파일(chatbot_sch.py)이 있는 디렉토리 경로
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# CSV 파일 경로 (현재 디렉토리 + ChatbotData.csv)
+filepath = os.path.join(current_dir, 'ChatbotData.csv')
 
 # 챗봇 인스턴스 생성
 chatbot = LevenshteinChatBot(filepath)
@@ -70,7 +75,7 @@ chatbot = LevenshteinChatBot(filepath)
 while True:
     input_sentence = input('You: ')
     if input_sentence.lower() == '종료':
-        print("Chatbot: 대화를 종료합니다. 감사합니다.")
+        print("Chatbot: 대화를 종료합니다.")
         break
     response = chatbot.find_best_answer(input_sentence)
     print('Chatbot:', response)
